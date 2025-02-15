@@ -1,6 +1,5 @@
-
 import pygame
-from constants import *
+from constants import SCREEN_HEIGHT, SCREEN_WIDTH
 from player import Player
 
 def main():
@@ -12,6 +11,7 @@ def main():
 
     while True:
         dt = clock.tick(60) / 1000
+        
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return

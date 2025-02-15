@@ -1,5 +1,5 @@
 import pygame
-from constants import *
+import constants
 from circleshape import CircleShape
 
 class Player(CircleShape):
@@ -21,15 +21,17 @@ class Player(CircleShape):
     def update(self, dt):
         keys = pygame.key.get_pressed()
         if keys[pygame.K_a]:
-            print("A key pressed")
             self.rotate(-dt)
         if keys[pygame.K_d]:
-            print("D key pressed")
             self.rotate(dt)
+        if keys[pygame.K_w]:
+            self.move(dt)
+        if keys[pygame.K_s]:
+            self.move(-dt)
 
     def rotate(self, dt):
-        print(f"Current rotation: {self.rotation}")
         self.rotation += PLAYER_TURN_SPEED * dt
-        print(f"New rotation: {self.rotation}")
-
-    
+        
+    def move(self, dt):
+        forward = pygame.Vector2(0, 1).rotate(self.rotation)
+        self.position += forward * PLAYER_SPEED * dt
