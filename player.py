@@ -4,6 +4,10 @@ from circleshape import CircleShape
 
 class Player(CircleShape):
     def __init__(self, x, y):
+        # Automatically add this instance to all groups in `containers`
+        if hasattr(self.__class__, "containers"):
+            pygame.sprite.Sprite.__init__(self, self.__class__.containers)
+
         super().__init__(x, y, PLAYER_RADIUS)
         self.rotation = 0
 
