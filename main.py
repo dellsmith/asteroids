@@ -1,20 +1,24 @@
 import pygame
-from constants import SCREEN_HEIGHT, SCREEN_WIDTH
+import os
+import sys
+from constants import *
 from player import Player
 from asteroid import Asteroid
 from shot import Shot
 from asteroidfield import AsteroidField
+from gameover import *
 
 def main():
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     clock = pygame.time.Clock()
+    pygame.display.set_caption("Dell's Asteroids")
 
     updatable_group = pygame.sprite.Group()
     drawable_group = pygame.sprite.Group()
     asteroid_group = pygame.sprite.Group()
     shots_group = pygame.sprite.Group()
-    
+
     Asteroid.containers = (asteroid_group, updatable_group, drawable_group)
     Shot.containers = (shots_group, updatable_group, drawable_group)
     AsteroidField.containers = (updatable_group,)
@@ -38,7 +42,7 @@ def main():
 
         for asteroid in asteroid_group:
             if asteroid.collides_with(player):
-                raise SystemExit("Game over!")
+                return show_game_over()
             
             for shot in shots_group:
                 if shot.collides_with(asteroid):
@@ -52,9 +56,7 @@ def main():
             obj.draw(screen)
 
         pygame.display.flip()
-
-
-        
+     
         
 
 if __name__ == "__main__":
